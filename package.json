@@ -45,7 +45,7 @@
     "js-yaml": "^4.1.0",
     "listr2": "^4.0.5",
     "lodash": "^4.17.21",
-    "node-fetch": "^2.6.7",
+    "node-fetch": "^3.2.10",
     "nunjucks": "^3.2.1",
     "pkg-install": "^1.0.0",
     "shelljs": "^0.8.5",
