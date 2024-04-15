@@ -28,7 +28,7 @@ To use the `express-cli` you have to execute the following steps.
 
 - [install aws cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) or [install gcloud tool](https://cloud.google.com/sdk/docs/install)
 - [install terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli) on your local machine
-- use [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) to switch to the proper `node` version, `vv20.12.0`,
+- use [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) to switch to the proper `node` version, `v20.12.0`,
   by running `nvm use` from the root folder
 - install `express-cli` and `matic-cli` locally with command `npm i`
 - generate a keypair on AWS EC2 (in the same region being used, currently `eu-west-1` by default and download its certificate locally (`.pem` file). If you are on GCP, you can use your existing keypair or use `ssh-keygen` to generate. Check the [GCP guide](./docs/gcp_dev_guide.md).
@@ -347,12 +347,12 @@ Please, make sure to install the following software/packages on the VMs.
   - https://docs.docker.com/engine/install/ubuntu/
   - https://docs.docker.com/engine/install/linux-postinstall/)
 
-- Node vv20.12.0 (only _host_)
+- Node v20.12.0 (only _host_)
 
   ```bash
   curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash \
     && source /home/ubuntu/.bashrc \
-    && nvm install v20.12.0 \
+    && nvm install 20.12.0 \
     && node --version
   ```
 
