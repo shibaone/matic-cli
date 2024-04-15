@@ -227,7 +227,7 @@ function validateEnvVars(cloud) {
     }),
     GENESIS_CONTRACTS_BRANCH: validStr({ default: 'master' }),
     MATIC_CLI_REPO: url({
-      default: 'https://github.com/maticnetwork/matic-cli.git'
+      default: 'https://github.com/shibaone/matic-cli.git'
     }),
     MATIC_CLI_BRANCH: validStr({ default: 'master' }),
     INSTANCES_IDS: validStr({

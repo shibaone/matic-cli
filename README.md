@@ -386,7 +386,7 @@ On the _host_ machine, please run
 
 ```bash
 cd \
-  && git clone https://github.com/maticnetwork/matic-cli.git \
+  && git clone https://github.com/shibaone/matic-cli.git \
   && cd matic-cli \
   && npm install
 ```
