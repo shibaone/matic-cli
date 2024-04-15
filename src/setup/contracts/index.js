@@ -13,7 +13,7 @@ export class Contracts {
 
     this.repositoryName = 'contracts'
     this.repositoryUrl =
-      options.repositoryUrl || 'https://github.com/maticnetwork/contracts'
+      options.repositoryUrl || 'https://github.com/shibaone/contracts'
     this.repositoryBranch = options.repositoryBranch || 'master'
   }
 
