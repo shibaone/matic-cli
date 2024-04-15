@@ -207,7 +207,7 @@ function validateEnvVars(cloud) {
     BLOCK_TIME: validStr({ default: '3,2' }),
     DEVNET_BOR_FLAGS: validStr({ default: 'config,cli' }),
     BOR_REPO: url({
-      default: 'https://github.com/maticnetwork/bor.git'
+      default: 'https://github.com/shibaone/bor.git'
     }),
     BOR_BRANCH: validStr({ default: 'develop' }),
     ERIGON_REPO: url({
@@ -215,15 +215,15 @@ function validateEnvVars(cloud) {
     }),
     ERIGON_BRANCH: validStr({ default: 'devel' }),
     HEIMDALL_REPO: url({
-      default: 'https://github.com/maticnetwork/heimdall.git'
+      default: 'https://github.com/shibaone/heimdall.git'
     }),
     HEIMDALL_BRANCH: validStr({ default: 'develop' }),
     CONTRACTS_REPO: url({
-      default: 'https://github.com/maticnetwork/contracts.git'
+      default: 'https://github.com/shibaone/contracts.git'
     }),
     CONTRACTS_BRANCH: validStr({ default: 'master' }),
     GENESIS_CONTRACTS_REPO: url({
-      default: 'https://github.com/maticnetwork/genesis-contracts.git'
+      default: 'https://github.com/shibaone/genesis-contracts.git'
     }),
     GENESIS_CONTRACTS_BRANCH: validStr({ default: 'master' }),
     MATIC_CLI_REPO: url({
@@ -234,10 +234,10 @@ function validateEnvVars(cloud) {
       default: 'i-02a1f3a2884c9edbc,i-03b2d4b3014a4becd'
     }),
     BOR_DOCKER_BUILD_CONTEXT: url({
-      default: 'https://github.com/maticnetwork/bor.git#develop'
+      default: 'https://github.com/shibaone/bor.git#develop'
     }),
     HEIMDALL_DOCKER_BUILD_CONTEXT: url({
-      default: 'https://github.com/maticnetwork/heimdall.git#develop'
+      default: 'https://github.com/shibaone/heimdall.git#develop'
     }),
     VERBOSE: bool({ default: true }),
     DD_API_KEY: validStr({ default: 'DATADOG_API_KEY' }),

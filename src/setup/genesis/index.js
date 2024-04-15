@@ -24,7 +24,7 @@ export class Genesis {
       options.repositoryBranch || 'mardizzone/node-upgrade'
     this.repositoryUrl =
       options.repositoryUrl ||
-      'https://github.com/maticnetwork/genesis-contracts'
+      'https://github.com/shibaone/genesis-contracts'
     this.maticContractsRepository = 'matic-contracts'
   }
 

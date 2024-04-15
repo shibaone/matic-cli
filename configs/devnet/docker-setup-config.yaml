@@ -1,14 +1,14 @@
 # Repositories
-borRepo: https://github.com/maticnetwork/bor.git
-borBranch: develop
+borRepo: https://github.com/shibaone/bor.git
+borBranch: v1.1.0-bone-beta-3
 
-heimdallRepo: https://github.com/maticnetwork/heimdall.git
-heimdallBranch: develop
+heimdallRepo: https://github.com/shibaone/heimdall.git
+heimdallBranch: v1.0.2-bone-beta-3
 
-contractsRepo: https://github.com/maticnetwork/contracts.git
-contractsBranch: mardizzone/node-16
+contractsRepo: https://github.com/shibaone/contracts.git
+contractsBranch: v0.4.2-bone
 
-genesisContractsRepo: https://github.com/maticnetwork/genesis-contracts.git
+genesisContractsRepo: https://github.com/shibaone/genesis-contracts.git
 genesisContractsBranch: master
 
 # Defaults
@@ -17,15 +17,15 @@ defaultStake: 10000
 defaultFee: 2000
 
 # L1
-ethURL: http://ganache:9545
+ethURL: https://eth-sepolia.g.alchemy.com/v2/fxvGAhZVTo8gG8frWX7TyikGQ_0eoBd2
 ethHostUser: ubuntu
 
 # Heimdall
 heimdallChainId: heimdall-4052
-heimdallDockerBuildContext: https://github.com/maticnetwork/heimdall.git#develop
+heimdallDockerBuildContext: https://github.com/shibaone/heimdall.git#develop
 
 # Bor
-borChainId: 15005
+borChainId: 15001
 sprintSize: 64
 sprintSizeBlockNumber: 0
 blockNumber: '0'
@@ -33,7 +33,7 @@ blockTime: '2'
 numOfBorValidators: 1
 numOfBorSentries: 1
 numOfBorArchiveNodes: 0
-borDockerBuildContext: https://github.com/maticnetwork/bor.git#develop
+borDockerBuildContext: https://github.com/shibaone/bor.git#develop
 devnetBorUsers: ubuntu,ubuntu
 devnetBorHosts: ["ec2-xx-xxx-xx-xxx.eu-west-1.compute.amazonaws.com"] # use localhost for local deployments
 devnetBorFlags: config,config
