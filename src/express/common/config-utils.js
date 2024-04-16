@@ -219,11 +219,11 @@ function validateEnvVars(cloud) {
     }),
     HEIMDALL_BRANCH: validStr({ default: 'develop' }),
     CONTRACTS_REPO: url({
-      default: 'https://github.com/shibaone/contracts.git'
+      default: 'https://github.com/maticnetwork/contracts.git'
     }),
     CONTRACTS_BRANCH: validStr({ default: 'master' }),
     GENESIS_CONTRACTS_REPO: url({
-      default: 'https://github.com/shibaone/genesis-contracts.git'
+      default: 'https://github.com/maticnetwork/genesis-contracts.git'
     }),
     GENESIS_CONTRACTS_BRANCH: validStr({ default: 'master' }),
     MATIC_CLI_REPO: url({
