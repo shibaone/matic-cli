@@ -5,10 +5,10 @@ borBranch: v1.1.0-bone-beta-3
 heimdallRepo: https://github.com/shibaone/heimdall.git
 heimdallBranch: v1.0.2-bone-beta-3
 
-contractsRepo: https://github.com/shibaone/contracts.git
-contractsBranch: v0.4.2-bone
+contractsRepo: https://github.com/maticnetwork/contracts.git
+contractsBranch: mardizzone/node-16
 
-genesisContractsRepo: https://github.com/shibaone/genesis-contracts.git
+genesisContractsRepo: https://github.com/maticnetwork/genesis-contracts.git
 genesisContractsBranch: master
 
 # Defaults
