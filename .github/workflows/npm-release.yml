@@ -4,7 +4,7 @@ on:
     types: [created]
 
 env:
-  NODE_VERSION: '20.12.0'
+  NODE_VERSION: 'v16.17.1'
 
 jobs:
   build:

@@ -352,7 +352,7 @@ Please, make sure to install the following software/packages on the VMs.
   ```bash
   curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash \
     && source /home/ubuntu/.bashrc \
-    && nvm install 20.12.0 \
+    && nvm install v16.17.1 \
     && node --version
   ```
 

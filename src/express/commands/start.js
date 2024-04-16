@@ -194,7 +194,7 @@ async function installHostSpecificPackages(ip) {
                         export NVM_DIR="$HOME/.nvm"
                         [ -s "$NVM_DIR/nvm.sh" ] && \\. "$NVM_DIR/nvm.sh"
                         [ -s "$NVM_DIR/bash_completion" ] && \\. "$NVM_DIR/bash_completion" &&
-                        nvm install 20.12.0`
+                        nvm install v16.17.1`
   await runSshCommand(ip, command, maxRetries)
 
   console.log('📍Installing solc...')
