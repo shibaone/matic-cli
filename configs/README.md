@@ -72,23 +72,23 @@ devnetHeimdallUsers:
   - ubuntu
   - ubuntu
 
-# Branch of bor to use. Repository: https://github.com/maticnetwork/bor
+# Branch of bor to use. Repository: https://github.com/shibaone/bor
 borBranch: c5569e4da9ebe0ce4e63aec571966c71234f7cfc # todo change to develop once https://polygon.atlassian.net/browse/POS-979 is solved
 
-# Branch of Heimdall to use. Repository: https://github.com/maticnetwork/heimdall
-heimdallBranch: develop
+# Branch of Heimdall to use. Repository: https://github.com/shibaone/heimdall
+heimdallBranch: v1.0.7-bone-candidate
 
-# Branch of contract to use. Repository: https://github.com/maticnetwork/contracts
+# Branch of contract to use. Repository: https://github.com/shibaone/contracts
 contractsBranch: mardizzone/node-upgrade # todo change to master once contracts team merges the PR
 
-# Branch of contract to use. Repository: https://github.com/maticnetwork/genesis-contracts
+# Branch of contract to use. Repository: https://github.com/shibaone/genesis-contracts
 genesisContractsBranch: mardizzone/node-upgrade # todo change to master once contracts team merges the PR
 
 # Docker build context for bor. Used in docker setup. When specified, borBranch will be ignored.
-borDockerBuildContext: 'https://github.com/maticnetwork/bor.git#c5569e4da9ebe0ce4e63aec571966c71234f7cfc' # todo change to develop once https://polygon.atlassian.net/browse/POS-979 is solved"
+borDockerBuildContext: 'https://github.com/shibaone/bor.git#v1.3.7-bone-candidate' # todo change to develop once https://polygon.atlassian.net/browse/POS-979 is solved"
 
 # Docker build context for heimdall. Used in docker setup. When specified, heimdallBranch will be ignored.
-heimdallDockerBuildContext: 'https://github.com/maticnetwork/heimdall.git#develop'
+heimdallDockerBuildContext: 'https://github.com/shibaone/heimdall.git#v1.0.7-bone-candidate'
 
 # Datadog api key required to setup datadog traces and metrics for the node.
 DD_API_KEY: <DATADOG API KEY> # Datadog API key

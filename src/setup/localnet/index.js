@@ -19,18 +19,18 @@ async function setupLocalnet(config) {
     contractsBranch: config.contractsBranch
   })
   const bor = new Bor(config, {
-    repositoryUrl: config.borRepo || 'https://github.com/maticnetwork/bor',
+    repositoryUrl: config.borRepo || 'https://github.com/shibaone/bor',
     repositoryBranch: config.borBranch || 'develop'
   })
   const heimdall = new Heimdall(config, {
     repositoryUrl:
-      config.heimdallRepo || 'https://github.com/maticnetwork/heimdall',
+      config.heimdallRepo || 'https://github.com/shibaone/heimdall',
     repositoryBranch: config.heimdallBranch || 'develop'
   })
   const genesis = new Genesis(config, {
     repositoryUrl:
       config.genesisContractsRepo ||
-      'https://github.com/maticnetwork/genesis-contracts',
+      'https://github.com/shibaone/genesis-contracts',
     repositoryBranch: config.genesisContractsBranch || 'master'
   })
 

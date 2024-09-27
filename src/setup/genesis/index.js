@@ -13,7 +13,7 @@ import { cloneRepository, errorMissingConfigs } from '../../lib/utils.js'
 import { getRemoteStdio } from '../../express/common/remote-worker.js'
 
 // balance
-const DEFAULT_BALANCE = 1000000000 // 1 Billion - Without 10^18
+const DEFAULT_BALANCE = 250000000 // 250 Million - Without 10^18
 
 export class Genesis {
   constructor(config, options = {}) {
@@ -24,7 +24,7 @@ export class Genesis {
       options.repositoryBranch || 'mardizzone/node-upgrade'
     this.repositoryUrl =
       options.repositoryUrl ||
-      'https://github.com/maticnetwork/genesis-contracts'
+      'https://github.com/shibaone/genesis-contracts'
     this.maticContractsRepository = 'matic-contracts'
   }
 
@@ -198,7 +198,7 @@ export class Genesis {
               .then(() => {
                 fs.writeFileSync(
                   path.join(this.repositoryDir, 'blocks.json'),
-                  JSON.stringify(blocks, null, 2)
+                  JSON.stringify(blocks, null, 5)
                 )
               })
           }

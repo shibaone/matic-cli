@@ -66,7 +66,7 @@ export async function getNetworkParams(options = {}) {
       type: 'input',
       name: 'blockTime',
       message: 'Please enter the block times(s) separated by commas',
-      default: '2'
+      default: '5'
     })
 
     questions.push({
@@ -86,7 +86,7 @@ export async function getNetworkParams(options = {}) {
   if (!options.interactive && !options.blockTime && !options.sprintSize) {
     return {
       sprintSize: '64',
-      blockTime: '2',
+      blockTime: '5',
       blockNumber: '0',
       sprintSizeBlockNumber: '0'
     }

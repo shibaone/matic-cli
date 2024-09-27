@@ -15,4 +15,5 @@ cd {{ obj.contracts.repositoryDir }}
 {% for acc in obj.config.accounts %}
 npm run truffle exec scripts/stake.js -- --network development {{ acc.address }} {{ acc.privateKey | publicKey }} $STAKE $FEE
 sleep 10
+
 {% endfor %}

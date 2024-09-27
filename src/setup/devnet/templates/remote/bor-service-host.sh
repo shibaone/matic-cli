@@ -85,27 +85,3 @@ cat > heimdalld.service <<EOF
 [Install]
   WantedBy=multi-user.target
 EOF
-
-cat > heimdalld-rest-server.service <<EOF
-[Unit]
-  Description=heimdalld-rest-server
-[Service]
-  WorkingDirectory=$NODE_DIR
-  ExecStart=$BIN_DIR/heimdalld rest-server
-  Type=simple
-  User=$USER
-[Install]
-  WantedBy=multi-user.target
-EOF
-
-cat > heimdalld-bridge.service <<EOF
-[Unit]
-  Description=heimdalld-bridge
-[Service]
-  WorkingDirectory=$NODE_DIR
-  ExecStart=$BIN_DIR/bridge start --all
-  Type=simple
-  User=$USER
-[Install]
-  WantedBy=multi-user.target
-EOF

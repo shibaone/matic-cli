@@ -288,7 +288,7 @@ The `express-cli` also comes with additional utility commands, listed below. Som
 - `../../bin/express-cli.js --rpc-test`
 
   - Executes RPC methods against the provided test data and verifies the response data's compatibility and correctness.
-    Since the `tests/rpc-tests/RPC-testdata` is a [submodule](https://github.com/maticnetwork/RPC-testdata) , do the following
+    Since the `tests/rpc-tests/RPC-testdata` is a [submodule](https://github.com/shibaone/RPC-testdata) , do the following
     to initialize and fetch the testdata:
 
     ```bash
@@ -450,7 +450,7 @@ On the _host_ machine, please run
 
 ```bash
 cd \
-  && git clone https://github.com/maticnetwork/matic-cli.git \
+  && git clone https://github.com/shibaone/matic-cli.git \
   && cd matic-cli \
   && npm install
 ```

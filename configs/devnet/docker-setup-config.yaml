@@ -1,14 +1,14 @@
 # Repositories
-borRepo: https://github.com/maticnetwork/bor.git
-borBranch: develop
+borRepo: https://github.com/shibaone/bor.git
+borBranch: v1.3.7-bone-candidate
 
-heimdallRepo: https://github.com/maticnetwork/heimdall.git
-heimdallBranch: develop
+heimdallRepo: https://github.com/shibaone/heimdall.git
+heimdallBranch: v1.0.7-bone-candidate
 
-contractsRepo: https://github.com/maticnetwork/contracts.git
-contractsBranch: mardizzone/node-16
+contractsRepo: https://github.com/shibaone/contracts.git
+contractsBranch: v1.0.0-bone/node-16
 
-genesisContractsRepo: https://github.com/maticnetwork/genesis-contracts.git
+genesisContractsRepo: https://github.com/shibaone/genesis-contracts.git
 genesisContractsBranch: master
 
 # Defaults
@@ -21,19 +21,19 @@ ethURL: http://ganacheURL:9545 # use localhost for local deployments
 ethHostUser: ubuntu
 
 # Heimdall
-heimdallChainId: heimdall-4052
-heimdallDockerBuildContext: https://github.com/maticnetwork/heimdall.git#develop
+heimdallChainId: heimdall-173
+heimdallDockerBuildContext: https://github.com/shibaone/heimdall.git#v1.0.7-bone-candidate
 
 # Bor
-borChainId: 15005
+borChainId: 173
 sprintSize: 64
 sprintSizeBlockNumber: 0
 blockNumber: '0'
-blockTime: '2'
-numOfBorValidators: 1
-numOfBorSentries: 1
-numOfBorArchiveNodes: 0
-borDockerBuildContext: https://github.com/maticnetwork/bor.git#develop
+blockTime: '5'
+numOfBorValidators: 3
+numOfBorSentries: 2
+numOfBorArchiveNodes: 1
+borDockerBuildContext: https://github.com/shibaone/bor.git#v1.3.7-bone-candidate
 devnetBorUsers: ubuntu,ubuntu
 devnetBorHosts: ["ec2-xx-xxx-xx-xxx.eu-west-1.compute.amazonaws.com"] # use localhost for local deployments
 devnetBorFlags: config,config

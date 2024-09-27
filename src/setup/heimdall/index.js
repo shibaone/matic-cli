@@ -25,10 +25,10 @@ export class Heimdall {
     this.repositoryName = this.name
     this.repositoryBranch = options.repositoryBranch || 'develop'
     this.repositoryUrl =
-      options.repositoryUrl || 'https://github.com/maticnetwork/heimdall'
+      options.repositoryUrl || 'https://github.com/shibaone/heimdall'
     this.dockerContext =
       options.dockerContext ||
-      'https://github.com/maticnetwork/heimdall.git#develop'
+      'https://github.com/shibaone/heimdall.git#v1.3.7-bone-candidate'
   }
 
   get name() {
@@ -200,7 +200,7 @@ export class Heimdall {
             fileReplacer(this.heimdallGenesisFilePath)
               .replace(
                 /"matic_token_address":[ ]*".*"/gi,
-                `"matic_token_address": "${rootContracts.tokens.TestToken}"`
+                `"matic_token_address": "${rootContracts.tokens.BoneToken}"`
               )
               .replace(
                 /"staking_manager_address":[ ]*".*"/gi,
