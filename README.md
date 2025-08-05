@@ -429,7 +429,7 @@ Please, make sure to install the following software/packages on the VMs.
   brew install pyenv
   pyenv install 3.13.2
   pyenv global 3.13.2
-  python3 --version  
+  python3 --version
   pyenv exec python3 -m ensurepip --default-pip
   python3 -m pip install --upgrade pip
   ```
