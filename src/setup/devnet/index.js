@@ -1048,6 +1048,24 @@ export class Devnet {
                 '~/cert.pem',
                 `${this.config.devnetBorUsers[i]}@${this.config.devnetBorHosts[i]}`,
                 'sudo cp ~/go/bin/bor /usr/bin/bor && sudo chmod +x /usr/bin/bor'
+<<<<<<< HEAD
+=======
+              ],
+              { stdio: getRemoteStdio() }
+            )
+
+            await execa(
+              'ssh',
+              [
+                '-o',
+                'StrictHostKeyChecking=no',
+                '-o',
+                'UserKnownHostsFile=/dev/null',
+                '-i',
+                '~/cert.pem',
+                `${this.config.devnetBorUsers[i]}@${this.config.devnetBorHosts[i]}`,
+                'sudo cp ~/go/bin/heimdallcli /usr/bin/heimdallcli && sudo chmod +x /usr/bin/heimdallcli'
+>>>>>>> master
               ],
               { stdio: getRemoteStdio() }
             )
@@ -1212,6 +1230,39 @@ export class Devnet {
                 '~/cert.pem',
                 `${this.config.devnetErigonUsers[i]}@${this.config.devnetErigonHosts[i]}`,
                 'sudo cp ~/go/bin/heimdalld /usr/bin/heimdalld && sudo chmod +x /usr/bin/heimdalld'
+<<<<<<< HEAD
+=======
+              ],
+              { stdio: getRemoteStdio() }
+            )
+
+            await execa(
+              'ssh',
+              [
+                '-o',
+                'StrictHostKeyChecking=no',
+                '-o',
+                'UserKnownHostsFile=/dev/null',
+                '-i',
+                '~/cert.pem',
+                `${this.config.devnetBorUsers[i]}@${this.config.devnetBorHosts[i]}`,
+                'sudo cp ~/go/bin/bor /usr/bin/bor && sudo chmod +x /usr/bin/bor'
+              ],
+              { stdio: getRemoteStdio() }
+            )
+
+            await execa(
+              'ssh',
+              [
+                '-o',
+                'StrictHostKeyChecking=no',
+                '-o',
+                'UserKnownHostsFile=/dev/null',
+                '-i',
+                '~/cert.pem',
+                `${this.config.devnetBorUsers[i]}@${this.config.devnetBorHosts[i]}`,
+                'sudo cp ~/go/bin/heimdallcli /usr/bin/heimdallcli && sudo chmod +x /usr/bin/heimdallcli'
+>>>>>>> master
               ],
               { stdio: getRemoteStdio() }
             )
