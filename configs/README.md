@@ -79,7 +79,7 @@ borBranch: develop
 heimdallBranch: develop
 
 # Branch of contract to use. Repository: https://github.com/0xPolygon/pos-contracts
-contractsBranch: ed58f8a7d2703bfe7f9f03bdcd306e0e0103acd6
+contractsBranch: anvil-pos
 
 # Branch of contract to use. Repository: https://github.com/0xPolygon/genesis-contracts
 genesisContractsBranch: master
