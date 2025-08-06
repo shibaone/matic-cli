@@ -201,11 +201,11 @@ function validateEnvVars(cloud) {
     BLOCK_TIME: validStr({ default: '3,2' }),
     DEVNET_BOR_FLAGS: validStr({ default: 'config,cli' }),
     BOR_REPO: validStr({
-      default: 'https://github.com/maticnetwork/bor.git'
+      default: 'https://github.com/0xPolygon/bor.git'
     }),
     BOR_BRANCH: validStr({ default: 'develop' }),
     ERIGON_REPO: validStr({
-      default: 'https://github.com/ledgerwatch/erigon.git'
+      default: 'https://github.com/erigontech/erigon'
     }),
     ERIGON_BRANCH: validStr({ default: 'main' }),
     HEIMDALL_REPO: validStr({
@@ -213,22 +213,22 @@ function validateEnvVars(cloud) {
     }),
     HEIMDALL_BRANCH: validStr({ default: 'develop' }),
     CONTRACTS_REPO: validStr({
-      default: 'https://github.com/maticnetwork/contracts.git'
+      default: 'https://github.com/0xPolygon/pos-contracts.git'
     }),
     CONTRACTS_BRANCH: validStr({ default: 'master' }),
     GENESIS_CONTRACTS_REPO: validStr({
-      default: 'https://github.com/maticnetwork/genesis-contracts.git'
+      default: 'https://github.com/0xPolygon/genesis-contracts.git'
     }),
     GENESIS_CONTRACTS_BRANCH: validStr({ default: 'master' }),
     MATIC_CLI_REPO: validStr({
-      default: 'https://github.com/maticnetwork/matic-cli.git'
+      default: 'https://github.com/0xPolygon/matic-cli.git'
     }),
     MATIC_CLI_BRANCH: validStr({ default: 'master' }),
     INSTANCES_IDS: validStr({
       default: 'i-02a1f3a2884c9edbc,i-03b2d4b3014a4becd'
     }),
     BOR_DOCKER_BUILD_CONTEXT: url({
-      default: 'https://github.com/maticnetwork/bor.git#develop'
+      default: 'https://github.com/0xPolygon/bor.git#develop'
     }),
     HEIMDALL_DOCKER_BUILD_CONTEXT: url({
       default: 'https://github.com/0xPolygon/heimdall-v2.git#develop'

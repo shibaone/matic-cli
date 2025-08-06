@@ -5,7 +5,7 @@ defaultFee: 2000
 borChainId: 15005
 heimdallChainId: heimdall-15005
 
-borRepo: https://github.com/maticnetwork/bor.git
+borRepo: https://github.com/0xPolygon/bor.git
 borBranch: develop
 
 heimdallRepo: https://github.com/0xPolygon/heimdall-v2.git
@@ -14,7 +14,7 @@ heimdallBranch: develop
 contractsRepo: https://github.com/0xPolygon/pos-contracts.git
 contractsBranch: anvil-pos
 
-genesisContractsRepo: https://github.com/maticnetwork/genesis-contracts.git
+genesisContractsRepo: https://github.com/0xPolygon/genesis-contracts.git
 genesisContractsBranch: master
 
 blockTime: '2'
@@ -50,7 +50,7 @@ devnetBorFlags:
   - config
   - config
 
-borDockerBuildContext: https://github.com/maticnetwork/bor.git#develop
+borDockerBuildContext: https://github.com/0xPolygon/bor.git#develop
 heimdallDockerBuildContext: https://github.com/0xPolygon/heimdall-v2.git#develop
 
 mnemonic: 'clock radar mass judge dismiss just intact mind resemble fringe diary casino'

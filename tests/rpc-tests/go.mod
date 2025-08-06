@@ -59,7 +59,7 @@ require (
 	github.com/klauspost/compress v1.17.0 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
-	github.com/maticnetwork/crand v1.0.2 // indirect
+	github.com/0xPolygon/crand v1.0.2 // indirect
 	github.com/mattn/go-runewidth v0.0.13 // indirect
 	github.com/mmcloughlin/addchain v0.4.0 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
@@ -94,4 +94,4 @@ require (
 	rsc.io/tmplfunc v0.0.3 // indirect
 )
 
-replace github.com/ethereum/go-ethereum => github.com/maticnetwork/bor v1.5.5
+replace github.com/ethereum/go-ethereum => github.com/0xPolygon/bor v2.2.9

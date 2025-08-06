@@ -61,7 +61,7 @@ services:
     image: local/bor
       {% endif %}
     {% else %}
-    image: "maticnetwork/bor:{{ obj.config.borBranch }}"
+    image: "0xpolygon/bor:{{ obj.config.borBranch }}"
     {% endif %}
 
     container_name: bor{{ node }}
