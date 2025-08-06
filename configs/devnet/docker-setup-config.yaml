@@ -6,7 +6,7 @@ heimdallRepo: https://github.com/0xPolygon/heimdall-v2.git
 heimdallBranch: develop
 
 contractsRepo: https://github.com/0xPolygon/pos-contracts.git
-contractsBranch: anvil-pos
+contractsBranch: ed58f8a7d2703bfe7f9f03bdcd306e0e0103acd6
 
 genesisContractsRepo: https://github.com/0xPolygon/genesis-contracts.git
 genesisContractsBranch: master

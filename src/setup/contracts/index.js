@@ -14,7 +14,7 @@ export class Contracts {
     this.repositoryName = 'pos-contracts'
     this.repositoryUrl =
       options.repositoryUrl || 'https://github.com/0xPolygon/pos-contracts'
-    this.repositoryBranch = options.repositoryBranch || 'anvil-pos'
+    this.repositoryBranch = options.repositoryBranch || 'ed58f8a7d2703bfe7f9f03bdcd306e0e0103acd6'
   }
 
   get name() {
