@@ -80,7 +80,7 @@ async function checkStateSyncTx(ip, id) {
   return undefined
 }
 
-async function getStateSyncTxList(ip, /*startTime, endTime*/) {
+async function getStateSyncTxList(ip) {
   const url = `http://${ip}:1317/clerk/event-records/list?page=1&limit=50`
   const response = await fetch(url)
   const responseJson = await response.json()
@@ -177,16 +177,7 @@ export async function monitor(exitWhenDone) {
     let stateSyncTxList
     let lastStateSyncTxID
     if (firstStateSyncTx) {
-      const timeOfFirstStateSyncTx = firstStateSyncTx.record_time
-      const firstEpochTime = parseInt(
-        new Date(timeOfFirstStateSyncTx).getTime() / 1000
-      )
-      const currentEpochTime = parseInt(new Date().getTime() / 1000)
-      stateSyncTxList = await getStateSyncTxList(
-        machine0,
-        /*firstEpochTime,
-        currentEpochTime*/
-      )
+      stateSyncTxList = await getStateSyncTxList(machine0)
       if (stateSyncTxList) {
         lastStateSyncTxID = stateSyncTxList.length
         const lastStateSyncTxHash =

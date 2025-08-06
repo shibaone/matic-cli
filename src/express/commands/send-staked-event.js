@@ -77,7 +77,7 @@ export async function sendStakedEvent(validatorID) {
   const newAccPrivKey = hdkey.fromMasterSeed(RandomSeed)._hdkey._privateKey
   const wallet = Wallet.default.fromPrivateKey(newAccPrivKey)
   const newAccAddr = wallet.getAddressString()
-  const newAccPubKey = wallet.getPublicKeyString()  
+  const newAccPubKey = wallet.getPublicKeyString()
 
   console.log('📍 Sending Matic Tokens to validators account')
   let command = `export PATH="$HOME/.foundry/bin:$PATH" && cast send ${MaticTokenAddr} "transfer(address,uint256)" ${validatorAccount} 100000000000000000000 --rpc-url http://localhost:9545 --private-key ${signerDump[0].priv_key}`
