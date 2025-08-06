@@ -80,8 +80,8 @@ async function checkStateSyncTx(ip, id) {
   return undefined
 }
 
-async function getStateSyncTxList(ip, startTime, endTime) {
-  const url = `http://${ip}:1317/clerk/event-records/list?from-time=${startTime}&to-time=${endTime}&page=1&limit=200`
+async function getStateSyncTxList(ip, /*startTime, endTime*/) {
+  const url = `http://${ip}:1317/clerk/event-records/list?page=1&limit=50`
   const response = await fetch(url)
   const responseJson = await response.json()
   if (responseJson.error) {
@@ -184,8 +184,8 @@ export async function monitor(exitWhenDone) {
       const currentEpochTime = parseInt(new Date().getTime() / 1000)
       stateSyncTxList = await getStateSyncTxList(
         machine0,
-        firstEpochTime,
-        currentEpochTime
+        /*firstEpochTime,
+        currentEpochTime*/
       )
       if (stateSyncTxList) {
         lastStateSyncTxID = stateSyncTxList.length

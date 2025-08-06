@@ -70,7 +70,7 @@ export async function sendStakedEvent(validatorID) {
   )
   const pkey = signerDump[validatorID - 1].priv_key
   const validatorAccount = signerDump[validatorID - 1].address
-  const stakeAmount = rootChainWeb3.utils.toWei('12')
+  const stakeAmount = rootChainWeb3.utils.toWei('12000')
   const heimdallFee = rootChainWeb3.utils.toWei('12')
 
   const RandomSeed = 'random' + Math.random()
@@ -78,6 +78,11 @@ export async function sendStakedEvent(validatorID) {
   const wallet = Wallet.default.fromPrivateKey(newAccPrivKey)
   const newAccAddr = wallet.getAddressString()
   const newAccPubKey = wallet.getPublicKeyString()
+
+  console.log("NEW VAL PRIV KEY!: ", newAccPrivKey.toString('hex'));
+  console.log("NEW VAL PUB KEY!: ", newAccPubKey);
+  console.log("NEW VAL ADDRESS!: ", newAccAddr);
+  
 
   console.log('📍 Sending Matic Tokens to validators account')
   let command = `export PATH="$HOME/.foundry/bin:$PATH" && cast send ${MaticTokenAddr} "transfer(address,uint256)" ${validatorAccount} 100000000000000000000 --rpc-url http://localhost:9545 --private-key ${signerDump[0].priv_key}`
