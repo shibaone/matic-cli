@@ -205,7 +205,7 @@ function validateEnvVars(cloud) {
     }),
     BOR_BRANCH: validStr({ default: 'develop' }),
     ERIGON_REPO: validStr({
-      default: 'https://github.com/erigontech/erigon'
+      default: 'https://github.com/erigontech/erigon.git'
     }),
     ERIGON_BRANCH: validStr({ default: 'main' }),
     HEIMDALL_REPO: validStr({
@@ -476,13 +476,13 @@ function setCommonConfigs(doc) {
     setConfigValue('network', process.env.NETWORK, doc)
     if (process.env.NETWORK === 'mainnet') {
       borChainId = 137
-      heimdallChainId = 'heimdall-137'
+      heimdallChainId = 'heimdallv2-137'
     } else if (process.env.NETWORK === 'mumbai') {
       borChainId = 80001
-      heimdallChainId = 'heimdall-80001'
+      heimdallChainId = 'heimdallv2-80001'
     } else if (process.env.NETWORK === 'amoy') {
       borChainId = 80002
-      heimdallChainId = 'heimdall-80002'
+      heimdallChainId = 'heimdallv2-80002'
     }
   } else if (!process.env.BOR_CHAIN_ID && !process.env.HEIMDALL_CHAIN_ID) {
     borChainId = Math.floor(Math.random() * 10000 + 1000)

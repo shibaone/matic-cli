@@ -70,7 +70,7 @@ export async function sendStakedEvent(validatorID) {
   )
   const pkey = signerDump[validatorID - 1].priv_key
   const validatorAccount = signerDump[validatorID - 1].address
-  const stakeAmount = rootChainWeb3.utils.toWei('12000')
+  const stakeAmount = rootChainWeb3.utils.toWei('12')
   const heimdallFee = rootChainWeb3.utils.toWei('12')
 
   const RandomSeed = 'random' + Math.random()
