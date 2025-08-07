@@ -20,7 +20,6 @@ import fs from 'fs'
 
 import shell from 'shelljs'
 import dotenv from 'dotenv'
-import { fundGanacheAccounts } from '../common/ganache-utils.js'
 
 async function terraformApply(devnetId) {
   console.log('📍Executing terraform apply...')
@@ -86,8 +85,6 @@ async function installRequiredSoftwareOnRemoteMachines(
 
   const requirementTasks = nodeIps.map(async (ip) => {
     user = splitAndGetHostIp(ip)
-    // FIXME re-enable when fixed
-    // await keepSshConfigAlive(ip)
     await configureCertAndPermissions(user, ip)
     await installCommonPackages(ip)
 
@@ -102,39 +99,6 @@ async function installRequiredSoftwareOnRemoteMachines(
   })
 
   await Promise.all(requirementTasks)
-}
-
-async function keepSshConfigAlive(ip) {
-  console.log('📍Modifying ssh config in instance...')
-  const config = `TCPKeepAlive no
-  ClientAliveInterval 30
-  ClientAliveCountMax 240`
-
-  // FIXME
-  //  maybe we need to check the config before restarting the service?
-  //  try `sshd -t`
-  //  Also, is this needed at all? Setting it every time from client
-  //  should let us achieve the same result (avoiding server side changes)
-  //  see https://www.simplified.guide/ssh/disable-timeout
-  let command = `sudo sh -c 'cat << EOF >> /etc/ssh/sshd_config
-  ${config}'`
-
-  await runSshCommand(ip, command, maxRetries)
-
-  //  FIXME
-  //   runSshCommand requires sshd connection
-  //   despite that, restarting sshd won't disconnect the current session
-  //   hence - theoretically - the following command is fine
-  console.log('📍Restarting ssh service...')
-  command = 'sudo systemctl restart ssh'
-  await runSshCommand(ip, command, maxRetries)
-
-  // FIXME
-  //  another issue might be that the method keepSshConfigAlive
-  //  is being called in as a requirement task in Promise.all(requirementTasks)
-  //  hence several ssh connections to the same machine
-  //  might be running in parallel (?)
-  //  this could potentially make the ssh restart fail
 }
 
 async function configureCertAndPermissions(user, ip) {
@@ -168,6 +132,11 @@ async function installCommonPackages(ip) {
   command = 'sudo apt install build-essential -y'
   await runSshCommand(ip, command, maxRetries)
 
+  console.log('📍Configuring locale ...')
+  command =
+    'sudo locale-gen en_US.UTF-8 && sudo update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8'
+  await runSshCommand(ip, command, maxRetries)
+
   console.log('📍Installing jq...')
   command = 'sudo apt install jq -y'
   await runSshCommand(ip, command, maxRetries)
@@ -186,6 +155,11 @@ async function installCommonPackages(ip) {
   console.log('📍Installing rabbitmq...')
   command = 'sudo apt install rabbitmq-server -y'
   await runSshCommand(ip, command, maxRetries)
+
+  console.log('📍Installing grpcurl...')
+  command =
+    'curl -sSL "https://github.com/fullstorydev/grpcurl/releases/download/v1.8.7/grpcurl_1.8.7_linux_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin'
+  await runSshCommand(ip, command, maxRetries)
 }
 
 async function installHostSpecificPackages(ip) {
@@ -197,12 +171,18 @@ async function installHostSpecificPackages(ip) {
                         nvm install 18.19.0`
   await runSshCommand(ip, command, maxRetries)
 
-  console.log('📍Installing solc...')
-  command = 'sudo snap install solc'
+  console.log('📍Installing python3...')
+  command =
+    'sudo apt install python3 python3-pip -y && alias python="/usr/bin/python3"'
   await runSshCommand(ip, command, maxRetries)
 
-  console.log('📍Installing python2...')
-  command = 'sudo apt install python2 -y && alias python="/usr/bin/python2"'
+  console.log('📍Installing solc-select...')
+  command = 'sudo pip install solc-select'
+  await runSshCommand(ip, command, maxRetries)
+
+  console.log('📍Installing solc versions...')
+  command =
+    'solc-select install 0.5.17 && solc-select install 0.6.12 && solc-select use 0.5.17'
   await runSshCommand(ip, command, maxRetries)
 
   console.log('📍Installing nodejs and npm...')
@@ -213,10 +193,16 @@ async function installHostSpecificPackages(ip) {
   command = `sudo ln -sf ~/.nvm/versions/node/v18.19.0/bin/npm /usr/bin/npm &&
                     sudo ln -sf ~/.nvm/versions/node/v18.19.0/bin/node /usr/bin/node &&
                     sudo ln -sf ~/.nvm/versions/node/v18.19.0/bin/npx /usr/bin/npx`
+
   await runSshCommand(ip, command, maxRetries)
 
-  console.log('📍Installing ganache...')
-  command = 'sudo npm install -g ganache -y'
+  console.log('📍Installing anvil...')
+  command =
+    'curl -L https://foundry.paradigm.xyz | bash && export PATH="$HOME/.foundry/bin:$PATH" >> ~/.bashrc && source ~/.bashrc && foundryup'
+  await runSshCommand(ip, command, maxRetries)
+
+  console.log('📍Checking anvil...')
+  command = 'export PATH="$HOME/.foundry/bin:$PATH" && forge --version'
   await runSshCommand(ip, command, maxRetries)
 }
 
@@ -314,9 +300,9 @@ async function eventuallyCleanupPreviousDevnet(ips, devnetType, devnetId) {
       let command = 'sudo rm -rf ~/matic-cli/devnet'
       await runSshCommand(ip, command, maxRetries)
 
-      console.log('📍Stopping ganache (if present) on machine ' + ip + ' ...')
+      console.log('📍Stopping anvil (if present) on machine ' + ip + ' ...')
       command =
-        "sudo systemctl stop ganache.service || echo 'ganache not running on current machine...'"
+        "sudo systemctl stop anvil.service || echo 'anvil not running on current machine...'"
       await runSshCommand(ip, command, maxRetries)
     }
     console.log('📍Stopping heimdall (if present) on machine ' + ip + ' ...')
@@ -385,8 +371,8 @@ async function runDockerSetupWithMaticCLI(ips, devnetId) {
     'cd ~/matic-cli/devnet && ../bin/matic-cli.js setup devnet -c ../configs/devnet/docker-setup-config.yaml'
   await runSshCommand(ip, command, maxRetries)
 
-  console.log('📍Starting ganache...')
-  command = 'cd ~/matic-cli/devnet && bash docker-ganache-start.sh'
+  console.log('📍Starting anvil...')
+  command = 'cd ~/matic-cli/devnet && bash docker-anvil-start.sh'
   await runSshCommand(ip, command, maxRetries)
 
   console.log('📍Starting heimdall...')
@@ -404,12 +390,12 @@ async function runDockerSetupWithMaticCLI(ips, devnetId) {
   if (!process.env.NETWORK) {
     await timer(60000)
     console.log('📍Deploying contracts for bor...')
-    command = 'cd ~/matic-cli/devnet && bash ganache-deployment-bor.sh'
+    command = 'cd ~/matic-cli/devnet && bash anvil-deployment-bor.sh'
     await runSshCommand(ip, command, maxRetries)
 
     await timer(60000)
     console.log('📍Deploying state-sync contracts...')
-    command = 'cd ~/matic-cli/devnet && bash ganache-deployment-sync.sh'
+    command = 'cd ~/matic-cli/devnet && bash anvil-deployment-sync.sh'
     await runSshCommand(ip, command, maxRetries)
   }
 
@@ -454,12 +440,12 @@ async function runRemoteSetupWithMaticCLI(ips, devnetId) {
   if (!process.env.NETWORK) {
     console.log('📍Deploying contracts for bor on machine ' + ip + ' ...')
     await timer(60000)
-    command = 'cd ~/matic-cli/devnet && bash ganache-deployment-bor.sh'
+    command = 'cd ~/matic-cli/devnet && bash anvil-deployment-bor.sh'
     await runSshCommand(ip, command, maxRetries)
 
     console.log('📍Deploying state-sync contracts on machine ' + ip + ' ...')
     await timer(60000)
-    command = 'cd ~/matic-cli/devnet && bash ganache-deployment-sync.sh'
+    command = 'cd ~/matic-cli/devnet && bash anvil-deployment-sync.sh'
     await runSshCommand(ip, command, maxRetries)
   }
 }
@@ -516,13 +502,4 @@ export async function start() {
   } else {
     await runRemoteSetupWithMaticCLI(dnsIps, devnetId)
   }
-
-  const doc = await yaml.load(
-    fs.readFileSync(
-      `../../deployments/devnet-${devnetId}/${devnetType}-setup-config.yaml`,
-      'utf8'
-    )
-  )
-
-  await fundGanacheAccounts(doc)
 }

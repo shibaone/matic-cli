@@ -50,13 +50,7 @@ const validZone = makeValidator((x) => {
 })
 
 const validCertPathStr = makeValidator((x) => {
-  if (
-    x !== undefined &&
-    x !== null &&
-    x !== '' &&
-    !x.startsWith('~') &&
-    (x.endsWith('.pem') || x.endsWith('.cer'))
-  ) {
+  if (x !== undefined && x !== null && x !== '' && !x.startsWith('~')) {
     console.log('Done Checking path..')
     return x
   } else throw new Error(x + 'is not valid, please check your configs!')
@@ -206,27 +200,27 @@ function validateEnvVars(cloud) {
     BLOCK_NUMBER: validStr({ default: '0,64' }),
     BLOCK_TIME: validStr({ default: '3,2' }),
     DEVNET_BOR_FLAGS: validStr({ default: 'config,cli' }),
-    BOR_REPO: url({
+    BOR_REPO: validStr({
       default: 'https://github.com/maticnetwork/bor.git'
     }),
     BOR_BRANCH: validStr({ default: 'develop' }),
-    ERIGON_REPO: url({
+    ERIGON_REPO: validStr({
       default: 'https://github.com/ledgerwatch/erigon.git'
     }),
-    ERIGON_BRANCH: validStr({ default: 'devel' }),
-    HEIMDALL_REPO: url({
+    ERIGON_BRANCH: validStr({ default: 'main' }),
+    HEIMDALL_REPO: validStr({
       default: 'https://github.com/maticnetwork/heimdall.git'
     }),
     HEIMDALL_BRANCH: validStr({ default: 'develop' }),
-    CONTRACTS_REPO: url({
+    CONTRACTS_REPO: validStr({
       default: 'https://github.com/maticnetwork/contracts.git'
     }),
     CONTRACTS_BRANCH: validStr({ default: 'master' }),
-    GENESIS_CONTRACTS_REPO: url({
+    GENESIS_CONTRACTS_REPO: validStr({
       default: 'https://github.com/maticnetwork/genesis-contracts.git'
     }),
     GENESIS_CONTRACTS_BRANCH: validStr({ default: 'master' }),
-    MATIC_CLI_REPO: url({
+    MATIC_CLI_REPO: validStr({
       default: 'https://github.com/maticnetwork/matic-cli.git'
     }),
     MATIC_CLI_BRANCH: validStr({ default: 'master' }),
@@ -486,6 +480,9 @@ function setCommonConfigs(doc) {
     } else if (process.env.NETWORK === 'mumbai') {
       borChainId = 80001
       heimdallChainId = 'heimdall-80001'
+    } else if (process.env.NETWORK === 'amoy') {
+      borChainId = 80002
+      heimdallChainId = 'heimdall-80002'
     }
   } else if (!process.env.BOR_CHAIN_ID && !process.env.HEIMDALL_CHAIN_ID) {
     borChainId = Math.floor(Math.random() * 10000 + 1000)
@@ -517,6 +514,7 @@ function setCommonConfigs(doc) {
   }
 
   setConfigValue('borChainId', borChainId, doc)
+  setConfigValue('mnemonic', process.env.MNEMONIC, doc)
   setConfigValue('heimdallChainId', heimdallChainId, doc)
   setConfigList('sprintSize', process.env.SPRINT_SIZE, doc)
   setConfigList(
@@ -859,7 +857,7 @@ export async function editMaticCliDockerYAMLConfig() {
   setCommonConfigs(doc)
   setEthHostUser('ubuntu', doc)
   setConfigValue('devnetType', 'docker', doc)
-  setEthURL('ganache', doc)
+  setEthURL('anvil', doc)
 
   fs.writeFile(
     `${process.cwd()}/docker-setup-config.yaml`,

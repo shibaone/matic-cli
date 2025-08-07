@@ -3,12 +3,14 @@ test
 .DS_Store
 devnet
 .env
+util-scripts/heimdall/config.env
 *.tfvars
 .terraform*
 terraform.tfstate
 terraform.tfstate.backup
 terraform.tfstate.*
 deployments/
+util-scripts/heimdall/logs
 .idea
 contractAddresses.json
 signer-dump.json
@@ -16,3 +18,7 @@ signer-dump.json
 /configs/devnet/remote-setup-config.yaml
 
 .dccache
+.vscode
+
+util-scripts/migration/*
+util-scripts/bor/backfill-state-sync-txs/bin/*
