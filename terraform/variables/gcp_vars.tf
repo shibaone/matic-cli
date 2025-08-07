@@ -14,32 +14,32 @@ variable "ERIGON_PERSISTENT_DISK_TYPE" {
 
 variable "BOR_ARCHIVE_PERSISTENT_DISK_TYPE" {
   type    = string
-  default = "pd-balanced"
+  default = "pd-standard"
 }
 
 variable "ERIGON_ARCHIVE_PERSISTENT_DISK_TYPE" {
   type    = string
-  default = "pd-balanced"
+  default = "pd-standard"
 }
 
 variable "BOR_MACHINE_TYPE" {
   type    = string
-  default = "e2-micro"
+  default = "t2a-standard-2"
 }
 
 variable "ERIGON_MACHINE_TYPE" {
   type    = string
-  default = "e2-micro"
+  default = "t2a-standard-2"
 }
 
 variable "BOR_ARCHIVE_MACHINE_TYPE" {
   type    = string
-  default = "e2-micro"
+  default = "t2a-standard-2"
 }
 
 variable "ERIGON_ARCHIVE_MACHINE_TYPE" {
   type    = string
-  default = "e2-micro"
+  default = "t2a-standard-2"
 }
 
 variable "INSTANCE_IMAGE" {
@@ -49,12 +49,12 @@ variable "INSTANCE_IMAGE" {
 
 variable "GCP_REGION" {
   type    = string
-  default = "europe-west2"
+  default = "us-central1"
 }
 
 variable "ZONE" {
   type    = string
-  default = "europe-west2-a"
+  default = "us-central1-a"
 }
 
 variable "GCP_PUB_KEY_FILE" {

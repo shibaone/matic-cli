@@ -27,27 +27,27 @@ variable "ERIGON_VOLUME_TYPE" {
 }
 
 variable "BOR_ARCHIVE_VOLUME_TYPE" {
-  default = "io1"
+  default = "gp3"
 }
 
 variable "ERIGON_ARCHIVE_VOLUME_TYPE" {
-  default = "io1"
+  default = "gp3"
 }
 
 variable "BOR_INSTANCE_TYPE" {
-  default = "t2.xlarge"
+  default = "t4g.large"
 }
 
 variable "ERIGON_INSTANCE_TYPE" {
-  default = "r5b.large"
+  default = "t4g.large"
 }
 
 variable "BOR_ARCHIVE_INSTANCE_TYPE" {
-  default = "t2.xlarge"
+  default = "t4g.large"
 }
 
 variable "ERIGON_ARCHIVE_INSTANCE_TYPE" {
-  default = "r5b.large"
+  default = "t4g.large"
 }
 
 variable "INSTANCE_AMI" {
@@ -55,15 +55,15 @@ variable "INSTANCE_AMI" {
 }
 
 variable "PEM_FILE" {
-  default = "aws-key"
+  default = "ubuntu"
 }
 
 variable "AWS_REGION" {
-  default = "eu-west-1"
+  default = "ap-south-1"
 }
 
 variable "AVAILABILITY_ZONE" {
-  default = "eu-west-1a"
+  default = "ap-south-1a"
 }
 
 variable "SG_CIDR_BLOCKS_OUT" {

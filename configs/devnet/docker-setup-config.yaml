@@ -1,14 +1,14 @@
 # Repositories
-borRepo: https://github.com/maticnetwork/bor.git
+borRepo: https://github.com/shibaone/bor.git
 borBranch: develop
 
-heimdallRepo: https://github.com/maticnetwork/heimdall.git
+heimdallRepo: https://github.com/shibaone/heimdall.git
 heimdallBranch: develop
 
-contractsRepo: https://github.com/0xPolygon/pos-contracts.git
+contractsRepo: https://github.com/shibaone/pos-contracts.git
 contractsBranch: anvil-pos
 
-genesisContractsRepo: https://github.com/maticnetwork/genesis-contracts.git
+genesisContractsRepo: https://github.com/shibaone/genesis-contracts.git
 genesisContractsBranch: master
 
 # Defaults
@@ -24,19 +24,19 @@ ethHostUser: ubuntu
 mnemonic: "clock radar mass judge dismiss just intact mind resemble fringe diary casino" 
 
 # Heimdall
-heimdallChainId: heimdall-4052
-heimdallDockerBuildContext: https://github.com/maticnetwork/heimdall.git#develop
+heimdallChainId: heimdall-15005
+heimdallDockerBuildContext: https://github.com/shibaone/heimdall.git#develop
 
 # Bor
 borChainId: 15005
 sprintSize: 64
 sprintSizeBlockNumber: 0
 blockNumber: '0'
-blockTime: '2'
-numOfBorValidators: 3
+blockTime: '5'
+numOfBorValidators: 2
 numOfBorSentries: 0
 numOfBorArchiveNodes: 0
-borDockerBuildContext: https://github.com/maticnetwork/bor.git#develop
+borDockerBuildContext: https://github.com/shibaone/bor.git#develop
 devnetBorUsers: ubuntu,ubuntu,ubuntu
 devnetBorFlags: config,config,config
 

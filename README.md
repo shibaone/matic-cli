@@ -329,7 +329,7 @@ Please, make sure to install the following software/packages on the VMs.
 - Go 1.18+ (_host_ and _remotes_)
 
   ```bash
-  wget https://raw.githubusercontent.com/maticnetwork/node-ansible/master/go-install.sh \
+  wget https://raw.githubusercontent.com/shibaone/node-ansible/master/go-install.sh \
     && bash go-install.sh --remove \
     && bash go-install.sh
   ```
@@ -392,7 +392,7 @@ Please, make sure to install the following software/packages on the VMs.
 - Go 1.18+ (_host_ and _remotes_)
 
   ```zsh
-  curl -O https://raw.githubusercontent.com/maticnetwork/node-ansible/master/go-install.sh
+  curl -O https://raw.githubusercontent.com/shibaone/node-ansible/master/go-install.sh
   bash go-install.sh --remove
   bash go-install.sh
   ```
@@ -447,7 +447,7 @@ On the _host_ machine, please run
 
 ```bash
 cd \
-  && git clone https://github.com/maticnetwork/matic-cli.git \
+  && git clone https://github.com/shibaone/matic-cli.git \
   && cd matic-cli \
   && npm install
 ```

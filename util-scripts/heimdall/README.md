@@ -25,7 +25,7 @@ By automating these tasks, the script significantly reduces manual overhead, ena
 
 ## Prerequisites
 
-Before running the script, ensure you have the following installed and configured as specified in the [Matic CLI documentation](https://www.github.com/maticnetwork/matic-cli):
+Before running the script, ensure you have the following installed and configured as specified in the [Matic CLI documentation](https://www.github.com/shibaone/matic-cli):
 
 1. **Git**: For version control operations.
 2. **Go**: To manage Go modules and build the project.

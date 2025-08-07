@@ -23,7 +23,7 @@ export class Genesis {
     this.repositoryBranch = options.repositoryBranch || 'master'
     this.repositoryUrl =
       options.repositoryUrl ||
-      'https://github.com/maticnetwork/genesis-contracts'
+      'https://github.com/shibaone/genesis-contracts'
     this.maticContractsRepository = 'matic-contracts'
   }
 

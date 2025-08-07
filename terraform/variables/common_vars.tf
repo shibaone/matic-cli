@@ -1,6 +1,6 @@
 variable "VM_NAME" {
   type    = string
-  default = "polygon-user"
+  default = "shib-dev"
 }
 
 variable "BOR_DISK_SIZE_GB" {
@@ -15,12 +15,12 @@ variable "ERIGON_DISK_SIZE_GB" {
 
 variable "BOR_ARCHIVE_DISK_SIZE_GB" {
   type    = number
-  default = 100
+  default = 50
 }
 
 variable "ERIGON_ARCHIVE_DISK_SIZE_GB" {
   type    = number
-  default = 100
+  default = 50
 }
 
 variable "DOCKERIZED" {
@@ -40,7 +40,7 @@ variable "ERIGON_VALIDATOR_COUNT" {
 
 variable "BOR_SENTRY_COUNT" {
   type    = number
-  default = 1
+  default = 0
 }
 
 

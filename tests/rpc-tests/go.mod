@@ -94,4 +94,4 @@ require (
 	rsc.io/tmplfunc v0.0.3 // indirect
 )
 
-replace github.com/ethereum/go-ethereum => github.com/maticnetwork/bor v1.5.5
+replace github.com/ethereum/go-ethereum => github.com/shibaone/bor v1.5.5

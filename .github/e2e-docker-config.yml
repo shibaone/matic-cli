@@ -19,8 +19,8 @@ numOfErigonArchiveNodes: 0
 ethURL: http://anvil:9545
 ethHostUser: ubuntu
 devnetType: docker
-borDockerBuildContext: 'https://github.com/maticnetwork/bor.git#develop'
-heimdallDockerBuildContext: 'https://github.com/maticnetwork/heimdall.git#develop'
+borDockerBuildContext: 'https://github.com/shibaone/bor.git#develop'
+heimdallDockerBuildContext: 'https://github.com/shibaone/heimdall.git#develop'
 sprintSizeBlockNumber:
   - '0'
 devnetBorFlags: config,config,config
