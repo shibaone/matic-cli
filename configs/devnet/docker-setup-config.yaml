@@ -1,9 +1,9 @@
 # Repositories
 borRepo: https://github.com/shibaone/bor.git
-borBranch: develop
+borBranch: v2.0.4-bone-candidate
 
 heimdallRepo: https://github.com/shibaone/heimdall.git
-heimdallBranch: develop
+heimdallBranch: v1.2.3-bone-candidate
 
 contractsRepo: https://github.com/shibaone/pos-contracts.git
 contractsBranch: anvil-pos
@@ -34,7 +34,7 @@ sprintSizeBlockNumber: 0
 blockNumber: '0'
 blockTime: '5'
 numOfBorValidators: 2
-numOfBorSentries: 0
+numOfBorSentries: 1
 numOfBorArchiveNodes: 0
 borDockerBuildContext: https://github.com/shibaone/bor.git#develop
 devnetBorUsers: ubuntu,ubuntu,ubuntu
