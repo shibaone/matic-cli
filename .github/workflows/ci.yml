@@ -7,8 +7,8 @@ on:
     branches:
       - '**'
     types: [opened, synchronize]
-  schedule:
-    - cron: '0 0 * * *'
+  # schedule:
+  #   - cron: '0 0 * * *'
 
 concurrency:
   group: build-${{ github.event.pull_request.number || github.ref }}
