@@ -8,7 +8,6 @@ import {
 import { terraformInit } from './express/commands/init.js'
 import { terraformDestroy } from './express/commands/destroy.js'
 import { startStressTest } from './express/commands/stress.js'
-import { startRpcTest } from './express/commands/rpc.js'
 import { sendStateSyncTx } from './express/commands/send-state-sync.js'
 import { sendStakedEvent } from './express/commands/send-staked-event.js'
 import { sendStakeUpdateEvent } from './express/commands/send-stake-update.js'
@@ -41,10 +40,11 @@ import { shadow } from './express/commands/shadow.js'
 import { relay } from './express/commands/relay.js'
 import { keypairAdd } from './express/commands/keypair-add.js'
 import { keypairDestroy } from './express/commands/keypair-destroy.js'
+import { rpcTest } from '../tests/rpc-tests/rpc-test.js'
 import { constants } from './express/common/constants.js'
 
 import pkg from '../package.json' assert { type: 'json' }
-import { fundAnvilAccounts } from './express/common/anvil-utils.js'
+import { fundGanacheAccounts } from './express/common/ganache-utils.js'
 
 function checkCloudProvider(provider, _) {
   const supportedClouds = [constants.cloud.AWS, constants.cloud.GCP]
@@ -163,7 +163,7 @@ program
   )
   .option('-relay, --relay', 'Relay transaction to shadow node')
   .option('-rpc, --rpc-test', 'Run the rpc test command')
-  .option('-fga, --fund-anvil-accounts', 'Add funds to anvil accounts')
+  .option('-fga, --fund-ganache-accounts', 'Add funds to ganache accounts')
   .version(pkg.version)
 
 export async function cli() {
@@ -644,15 +644,15 @@ export async function cli() {
     console.log(
       '⛔ This command is only available for non-dockerized devnets. Make sure to target such environment...'
     )
-    await startRpcTest()
-  } else if (options.fundAnvilAccounts) {
-    console.log('📍Command --fund-anvil-accounts')
+    await rpcTest()
+  } else if (options.fundGanacheAccounts) {
+    console.log('📍Command --fund-ganache-accounts')
     if (!checkDir(false)) {
       console.log(
         '❌ The command is not called from the appropriate devnet directory!'
       )
       process.exit(1)
     }
-    await fundAnvilAccounts()
+    await fundGanacheAccounts()
   }
 }

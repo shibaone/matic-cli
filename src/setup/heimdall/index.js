@@ -15,7 +15,7 @@ import {
   processTemplateFiles
 } from '../../lib/utils.js'
 import { getDefaultBranch } from '../helper.js'
-import { Anvil } from '../anvil/index.js'
+import { Ganache } from '../ganache/index.js'
 import { getRemoteStdio } from '../../express/common/remote-worker.js'
 
 export class Heimdall {
@@ -83,7 +83,7 @@ export class Heimdall {
     return path.join(this.heimdallConfigDir, 'genesis.json')
   }
 
-  get heimdallAppConfigFilePath() {
+  get heimdallHeimdallConfigFilePath() {
     return path.join(this.heimdallConfigDir, 'heimdall-config.toml')
   }
 
@@ -200,7 +200,7 @@ export class Heimdall {
             fileReplacer(this.heimdallGenesisFilePath)
               .replace(
                 /"matic_token_address":[ ]*".*"/gi,
-                `"matic_token_address": "${rootContracts.tokens.MaticToken}"`
+                `"matic_token_address": "${rootContracts.tokens.TestToken}"`
               )
               .replace(
                 /"staking_manager_address":[ ]*".*"/gi,
@@ -304,7 +304,7 @@ export class Heimdall {
         {
           title: 'Process heimdall config file',
           task: () => {
-            fileReplacer(this.heimdallAppConfigFilePath)
+            fileReplacer(this.heimdallHeimdallConfigFilePath)
               .replace(
                 /eth_rpc_url[ ]*=[ ]*".*"/gi,
                 'eth_rpc_url = "http://localhost:9545"'
@@ -312,14 +312,6 @@ export class Heimdall {
               .replace(
                 /bor_rpc_url[ ]*=[ ]*".*"/gi,
                 'bor_rpc_url = "http://localhost:8545"'
-              )
-              .replace(
-                /bor_grpc_flag[ ]*=[ ]*".*"/gi,
-                'bor_grpc_flag = "false"'
-              )
-              .replace(
-                /bor_grpc_url[ ]*=[ ]*".*"/gi,
-                'bor_grpc_url = "localhost:3131"'
               )
               .save()
           }
@@ -350,7 +342,7 @@ export class Heimdall {
 }
 
 async function setupHeimdall(config) {
-  const anvil = new Anvil(config, {
+  const ganache = new Ganache(config, {
     contractsBranch: config.contractsBranch
   })
   const heimdall = new Heimdall(config, {
@@ -363,9 +355,9 @@ async function setupHeimdall(config) {
   const tasks = new Listr(
     [
       {
-        title: anvil.taskTitle,
+        title: ganache.taskTitle,
         task: () => {
-          return anvil.getTasks()
+          return ganache.getTasks()
         }
       },
       {
@@ -385,7 +377,7 @@ async function setupHeimdall(config) {
 
   // print details
   await config.print()
-  await anvil.print()
+  await ganache.print()
   await heimdall.print()
 
   return true

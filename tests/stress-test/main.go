@@ -239,8 +239,8 @@ func generateAccountsUsingMnemonic() (accounts Accounts) {
 	}
 
 	for i := 1; i <= N; i++ {
-		var derivPath = "m/44'/60'/0'/0/" + strconv.Itoa(i)
-		path := hdwallet.MustParseDerivationPath(derivPath)
+		var dpath = "m/44'/60'/0'/0/" + strconv.Itoa(i)
+		path := hdwallet.MustParseDerivationPath(dpath)
 		account, err := wallet.Derive(path, false)
 		if err != nil {
 			log.Fatal(err)
@@ -498,7 +498,7 @@ func runBotTransaction(ctx context.Context, Clients *ethclient.Client, recipient
 
 	err = Clients.SendTransaction(ctx, signedTx)
 	if err != nil && DebugLogs {
-		fmt.Printf("Error in sending tx: %s, From : %s, To : %s\n", err, sender.addr.Hex(), recipient.Hex())
+		fmt.Printf("Error in sending tx: %s, From : %s, To : %s\n", err, sender.addr, recipient.Hash())
 	}
 	// Nonce++
 	CurrentIterations++
