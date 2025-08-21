@@ -16,9 +16,6 @@ concurrency:
 
 env:
   NODE_VERSION: '18.19.0'
-  OIDC_PROVIDER: projects/198945073119/locations/global/workloadIdentityPools/prj-polygonlabs-pos-v1-dev/providers/oi-prj-polygonlabs-pos-v1-dev
-  OIDC_SERVICE_ACCOUNT: prj-polygonlabs-pos-v1-dev-sa@prj-polygonlabs-pos-v1-dev.iam.gserviceaccount.com
-  OIDC_PROJECT_ID: prj-polygonlabs-pos-v1-dev
 
 jobs:
   lint:
@@ -52,29 +49,21 @@ jobs:
     if: (github.event.action != 'closed' || github.event.pull_request.merged == true)
     strategy:
       matrix:
-        os: [ubuntu-22.04] # list of os: https://github.com/actions/virtual-environments
+        os: [ubuntu-20.04] # list of os: https://github.com/actions/virtual-environments
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
         with:
           path: matic-cli
-      - uses: boonya/gh-action-name-generator@v1
-        id: generator
-        with:
-          length: 2
-          style: lowerCase
 
       - name: Create .env file
         working-directory: matic-cli
-        env:
-          GITHUB_HEAD_REF: ${{ github.head_ref || github.ref_name }}
         run: |
           cp .env.example .env
-          sed -i 's,polygon-user,${{steps.generator.outputs.name}},' .env
-          sed -i 's,gcp-key,matic-cli-ci-key,' .env
-          sed -i 's,/absolute/path/to/your/,/home/runner/work/matic-cli/matic-cli/matic-cli/gcp/,' .env
-          sed -i 's,YOUR_PROJECT_ID,prj-polygonlabs-pos-v1-dev,' .env
-          sed -i 's,MATIC_CLI_BRANCH=master,MATIC_CLI_BRANCH=$GITHUB_HEAD_REF,' .env
+          sed -i 's,YOUR_IDENTIFIER,matic-cli-ci,' .env
+          sed -i 's,aws-key,matic-cli-ci-key,' .env
+          sed -i 's,/absolute/path/to/your/,/home/runner/work/matic-cli/matic-cli/matic-cli/aws/,' .env
+          sed -i 's,MATIC_CLI_BRANCH=master,MATIC_CLI_BRANCH=${{ github.head_ref || github.ref_name }},' .env
 
       - name: Get GitHub action runner IP
         id: ip
@@ -86,25 +75,20 @@ jobs:
           touch secret.tfvars
           echo "SG_CIDR_BLOCKS=[\"${{ steps.ip.outputs.ipv4 }}/32\"]" >> secret.tfvars
 
-      - name: Authenticate with GCP via OIDC
-        id: auth
-        uses: google-github-actions/auth@v2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@master
         with:
-          token_format: access_token
-          workload_identity_provider: ${{ env.OIDC_PROVIDER }}
-          service_account: ${{ env.OIDC_SERVICE_ACCOUNT }}
-          project_id: ${{ env.OIDC_PROJECT_ID }}
+          aws-region: eu-west-1
+          role-to-assume: arn:aws:iam::${{ secrets.ACCOUNT_ID }}:role/MaticCLIGitHubActionsRole
+          role-session-name: GithubActionsSession
 
-      - name: Set up GCP SDK
-        uses: 'google-github-actions/setup-gcloud@v2'
-
-      - name: Create gcp key pair
+      - name: Create aws key pair
         working-directory: matic-cli
         run: |
-          mkdir gcp
-          cd gcp
-          ssh-keygen -t ed25519 -f ./matic-cli-ci-key
-          chmod 700 matic-cli-ci-key
+          mkdir aws
+          cd aws
+          aws ec2 create-key-pair --key-name matic-cli-ci-key --key-type rsa --key-format pem --query "KeyMaterial" --output text > matic-cli-ci-key.pem
+          chmod 700 matic-cli-ci-key.pem
 
       - name: Setup node
         uses: actions/setup-node@v4
@@ -117,11 +101,12 @@ jobs:
 
       - name: Init devnet
         working-directory: matic-cli
-        run: ./bin/express-cli.js --init gcp
+        run: ./bin/express-cli.js --init aws
 
       - name: Start devnet
         working-directory: matic-cli/deployments/devnet-1
         run: |
+          ls -la
           ../../bin/express-cli.js --start
 
       - name: Run stateSynced and checkpoint tests
@@ -136,7 +121,7 @@ jobs:
           timeout 5m ../../bin/express-cli.js --send-staked-event 1
           timeout 5m ../../bin/express-cli.js --send-stakeupdate-event 1
           timeout 5m ../../bin/express-cli.js --send-topupfee-event 1
-          timeout 15m ../../bin/express-cli.js --send-unstakeinit-event 1
+          timeout 10m ../../bin/express-cli.js --send-unstakeinit-event 1
 
       - name: Destroy devnet
         if: always()
@@ -145,6 +130,11 @@ jobs:
           echo "Running --destroy"
           ../../bin/express-cli.js --destroy
 
+      - name: Delete aws key pair
+        if: always()
+        working-directory: matic-cli/aws
+        run: aws ec2 delete-key-pair --key-name matic-cli-ci-key
+
   e2e-docker:
     permissions:
       id-token: write
@@ -152,7 +142,7 @@ jobs:
     if: (github.event.action != 'closed' || github.event.pull_request.merged == true)
     strategy:
       matrix:
-        os: [ubuntu-22.04] # list of os: https://github.com/actions/virtual-environments
+        os: [ubuntu-20.04] # list of os: https://github.com/actions/virtual-environments
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -169,29 +159,14 @@ jobs:
           sudo apt update
           sudo apt install build-essential
           curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-          sudo apt install jq curl
+          sudo snap install solc
+          sudo apt install python2 jq curl
+          sudo ln -sf /usr/bin/python2 /usr/bin/python
 
       - name: Setup node
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-
-      - name: Install solc-select
-        run: |
-          sudo apt update
-          sudo apt install python3 python3-pip -y
-          sudo ln -sf /usr/bin/python3 /usr/bin/python
-          pip install solc-select
-
-      - name: Install Solidity Version
-        run: |
-          solc-select install 0.5.17
-          solc-select install 0.6.12
-          solc-select use 0.5.17
-          solc --version
-
-      - name: Install Foundry
-        uses: foundry-rs/foundry-toolchain@v1
 
       - name: Bootstrap devnet
         run: |
@@ -204,39 +179,33 @@ jobs:
       - name: Launch devnet
         run: |
           cd matic-cli/devnet
-          bash docker-anvil-start.sh
+          bash docker-ganache-start.sh
           bash docker-heimdall-start-all.sh
           bash docker-bor-setup.sh
           bash docker-bor-start-all.sh
           cd -
           timeout 2m bash matic-cli/.github/integration-tests/bor_health.sh
           cd -
-          bash anvil-deployment-bor.sh
-          bash anvil-deployment-sync.sh
+          bash ganache-deployment-bor.sh
+          bash ganache-deployment-sync.sh
 
       - name: Run smoke tests
         run: |
+          echo "Funding ganache accounts..."
+          timeout 10m bash matic-cli/.github/integration-tests/fund_ganache_accounts.sh
           echo "Deposit 100 matic for each account to bor network"
-          cd matic-cli/devnet/devnet
-          SCRIPT_ADDRESS=$(jq -r '.[0].address' signer-dump.json)
-          SCRIPT_PRIVATE_KEY=$(jq -r '.[0].priv_key' signer-dump.json)
-          cd ../code/pos-contracts
-          CONTRACT_ADDRESS=$(jq -r .root.tokens.MaticToken contractAddresses.json)
-          forge script scripts/matic-cli-scripts/Deposit.s.sol:MaticDeposit --rpc-url http://localhost:9545 --private-key $SCRIPT_PRIVATE_KEY --broadcast --sig "run(address,address,uint256)" $SCRIPT_ADDRESS $CONTRACT_ADDRESS 100000000000000000000
-          cd ../../../..
+          cd matic-cli/devnet/code/contracts
+          npm run truffle exec scripts/deposit.js -- --network development $(jq -r .root.tokens.MaticToken contractAddresses.json) 100000000000000000000
+          cd -
           timeout 60m bash matic-cli/.github/integration-tests/smoke_test.sh
-
-      - name: Resolve absolute path for logs
-        id: pathfix
-        run: |
-          echo "ABS_LOG_PATH=$(realpath matic-cli/devnet/logs)" >> $GITHUB_ENV
 
       - name: Upload logs
         if: always()
-        uses: PaloAltoNetworks/upload-secure-artifact@main
+        uses: actions/upload-artifact@v3
         with:
           name: logs_${{ github.run_id }}
-          path: ${{ env.ABS_LOG_PATH }}
+          path: |
+            matic-cli/devnet/logs
 
       - name: Package code and chain data
         if: always()
@@ -246,11 +215,11 @@ jobs:
           cd -
           mkdir -p ${{ github.run_id }}/matic-cli
           sudo mv matic-cli/devnet ${{ github.run_id }}/matic-cli
-          sudo tar --warning=no-file-changed --exclude='.git' -czf code.tar.gz ${{ github.run_id }}
+          sudo tar czf code.tar.gz ${{ github.run_id }}
 
       - name: Upload code and chain data
         if: always()
-        uses: PaloAltoNetworks/upload-secure-artifact@main
+        uses: actions/upload-artifact@v3
         with:
           name: code_${{ github.run_id }}
           path: code.tar.gz

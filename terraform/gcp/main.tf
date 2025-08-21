@@ -1,4 +1,4 @@
-# Provider and Terraform Configuration
+# Provider and Terraform Configuration 
 
 terraform {
   required_providers {
@@ -28,35 +28,45 @@ resource "google_compute_subnetwork" "public-subnetwork" {
   ip_cidr_range = var.SUBNET_CIDR_RANGE
   region        = var.GCP_REGION
   network       = google_compute_network.vpc_network.name
+
 }
 
 # Reserve Static IP Address
 resource "google_compute_address" "bor_static_ip" {
   count = (var.DOCKERIZED == "yes") ? 0 : (var.BOR_VALIDATOR_COUNT + var.BOR_SENTRY_COUNT + var.BOR_ARCHIVE_COUNT)
+
   name  = format("%s-bor-%s", var.VM_NAME, count.index)
+
 }
 
 resource "google_compute_address" "erigon_static_ip" {
   count = (var.DOCKERIZED == "yes") ? 0 : (var.ERIGON_VALIDATOR_COUNT + var.ERIGON_SENTRY_COUNT + var.ERIGON_ARCHIVE_COUNT)
+
   name  = format("%s-erigon-%s", var.VM_NAME, count.index)
+
 }
 
 resource "google_compute_address" "docker_static_ip" {
   count = (var.DOCKERIZED == "yes") ? 1 : 0
+
   name  = format("%s-docker-%s", var.VM_NAME, count.index)
 }
 
 
 # GCP Compute VM using Machine Image
 resource "google_compute_instance" "bor_node_server" {
+
   count = (var.DOCKERIZED == "yes") ? 0 : (var.BOR_VALIDATOR_COUNT + var.BOR_SENTRY_COUNT + var.BOR_ARCHIVE_COUNT)
+
   name         = "${var.VM_NAME}-bor-${count.index + 1}"
   machine_type = (count.index >= var.BOR_VALIDATOR_COUNT + var.BOR_SENTRY_COUNT) ? var.BOR_ARCHIVE_MACHINE_TYPE : var.BOR_MACHINE_TYPE
 
   boot_disk {
     initialize_params {
       image = var.INSTANCE_IMAGE
+
       size = (count.index >= var.BOR_VALIDATOR_COUNT + var.BOR_SENTRY_COUNT) ? var.BOR_ARCHIVE_DISK_SIZE_GB : var.BOR_DISK_SIZE_GB
+
       type = (count.index >= var.BOR_VALIDATOR_COUNT + var.BOR_SENTRY_COUNT) ? var.BOR_ARCHIVE_PERSISTENT_DISK_TYPE : var.BOR_PERSISTENT_DISK_TYPE
     }
   }
@@ -82,8 +92,11 @@ resource "google_compute_instance" "bor_node_server" {
 }
 
 resource "google_compute_instance" "erigon_node_server" {
+
   count = (var.DOCKERIZED == "yes") ? 0 : (var.ERIGON_VALIDATOR_COUNT + var.ERIGON_SENTRY_COUNT + var.ERIGON_ARCHIVE_COUNT)
+
   name = "${var.VM_NAME}-erigon-${count.index + 1}"
+
   machine_type = (count.index >= var.ERIGON_VALIDATOR_COUNT + var.ERIGON_SENTRY_COUNT) ? var.ERIGON_ARCHIVE_MACHINE_TYPE : var.ERIGON_MACHINE_TYPE
 
   boot_disk {
@@ -111,6 +124,7 @@ resource "google_compute_instance" "erigon_node_server" {
   labels = {
     name     = "polygon-matic",
     instance = "erigon"
+
   }
 }
 
@@ -118,6 +132,7 @@ resource "google_compute_instance" "erigon_node_server" {
 resource "google_compute_instance" "dockerized_server" {
 
   count = (var.DOCKERIZED == "yes") ? 1 : 0
+
   name         = "${var.VM_NAME}-docker-${count.index + 1}"
   machine_type = var.BOR_MACHINE_TYPE
 
@@ -168,8 +183,7 @@ resource "google_compute_firewall" "allow_internal_access" {
   direction = "INGRESS"
   priority  = 1000
   allow {
-    protocol = "tcp"
-    ports    = var.PORTS_IN
+    protocol = "all"
   }
   source_tags = [var.VM_NAME]
   target_tags = [var.VM_NAME]
@@ -181,8 +195,7 @@ resource "google_compute_firewall" "allow_devnet_vm_connection" {
   direction = "INGRESS"
   priority  = 1000
   allow {
-    protocol = "tcp"
-    ports    = var.PORTS_IN
+    protocol = "all"
   }
   source_ranges = concat(google_compute_address.bor_static_ip.*.address, google_compute_address.erigon_static_ip.*.address, google_compute_address.docker_static_ip.*.address)
   target_tags = [var.VM_NAME]

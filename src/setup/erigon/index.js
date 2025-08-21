@@ -24,7 +24,7 @@ export class Erigon {
     this.config = config
 
     this.repositoryName = 'erigon'
-    this.repositoryBranch = options.repositoryBranch || 'main'
+    this.repositoryBranch = options.repositoryBranch || 'devel'
     this.repositoryUrl =
       options.repositoryUrl || 'https://github.com/maticnetwork/erigon'
 

@@ -265,21 +265,6 @@
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "convertMaticToPOL",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "constant": true,
     "inputs": [],
     "name": "currentEpoch",
@@ -385,37 +370,6 @@
       }
     ],
     "name": "delegationDeposit",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "validatorId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "delegator",
-        "type": "address"
-      }
-    ],
-    "name": "delegationDepositPOL",
     "outputs": [
       {
         "internalType": "bool",
@@ -629,21 +583,6 @@
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "validatorId",
-        "type": "uint256"
-      }
-    ],
-    "name": "forceUnstakePOL",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "constant": true,
     "inputs": [],
     "name": "getRegistry",
@@ -765,26 +704,6 @@
       }
     ],
     "name": "initialize",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_tokenNew",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_migration",
-        "type": "address"
-      }
-    ],
-    "name": "initializePOL",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -959,21 +878,6 @@
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "migration",
-    "outputs": [
-      {
-        "internalType": "contract IPolygonMigration",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -1161,31 +1065,6 @@
       }
     ],
     "name": "restake",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "validatorId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "stakeRewards",
-        "type": "bool"
-      }
-    ],
-    "name": "restakePOL",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -1398,41 +1277,6 @@
     "constant": false,
     "inputs": [
       {
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "heimdallFee",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "acceptDelegation",
-        "type": "bool"
-      },
-      {
-        "internalType": "bytes",
-        "name": "signerPubkey",
-        "type": "bytes"
-      }
-    ],
-    "name": "stakeForPOL",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
         "internalType": "uint256",
         "name": "validatorId",
         "type": "uint256"
@@ -1478,21 +1322,6 @@
     "constant": true,
     "inputs": [],
     "name": "token",
-    "outputs": [
-      {
-        "internalType": "contract IERC20",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "tokenMatic",
     "outputs": [
       {
         "internalType": "contract IERC20",
@@ -1640,37 +1469,6 @@
     "constant": false,
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "validatorId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "delegator",
-        "type": "address"
-      }
-    ],
-    "name": "transferFundsPOL",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
         "internalType": "address",
         "name": "newOwner",
         "type": "address"
@@ -1731,36 +1529,6 @@
       }
     ],
     "name": "unstakeClaim",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "validatorId",
-        "type": "uint256"
-      }
-    ],
-    "name": "unstakeClaimPOL",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "validatorId",
-        "type": "uint256"
-      }
-    ],
-    "name": "unstakePOL",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -2288,21 +2056,6 @@
       }
     ],
     "name": "withdrawRewards",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "validatorId",
-        "type": "uint256"
-      }
-    ],
-    "name": "withdrawRewardsPOL",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",

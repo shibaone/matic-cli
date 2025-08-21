@@ -20,7 +20,8 @@ export class Genesis {
     this.config = config
 
     this.repositoryName = this.name
-    this.repositoryBranch = options.repositoryBranch || 'master'
+    this.repositoryBranch =
+      options.repositoryBranch || 'mardizzone/node-upgrade'
     this.repositoryUrl =
       options.repositoryUrl ||
       'https://github.com/maticnetwork/genesis-contracts'
@@ -122,22 +123,11 @@ export class Genesis {
               }
             )
         },
-
-        {
-          title: 'Adding forge to path',
-          task: () =>
-            execa('bash', ['-c', 'export PATH="$HOME/.foundry/bin:$PATH"'], {
-              stdio: getRemoteStdio()
-            })
-        },
         {
           title: 'Compile matic-contracts',
           task: () =>
-            execa('forge', ['build'], {
-              env: {
-                ...process.env,
-                PATH: `${process.env.HOME}/.foundry/bin:${process.env.PATH}`
-              },
+            execa('npm', ['run', 'truffle:compile'], {
+              cwd: this.maticContractDir,
               stdio: getRemoteStdio()
             })
         },
