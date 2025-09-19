@@ -1,16 +1,16 @@
 defaultStake: 10000
 defaultFee: 2000
-borChainId: 15005
-heimdallChainId: heimdall-15005
+borChainId: 379
+heimdallChainId: heimdall-379
 borRepo: https://github.com/shibaone/bor.git
-borBranch: develop
+borBranch: v2.0.4-bone-candidate
 heimdallRepo: https://github.com/shibaone/heimdall.git
-heimdallBranch: develop
+heimdallBranch: v1.2.3-bone-candidate
 contractsRepo: https://github.com/shibaone/pos-contracts.git
-contractsBranch: anvil-pos
+contractsBranch: shib-dev
 genesisContractsRepo: https://github.com/shibaone/genesis-contracts.git
-genesisContractsBranch: master
-sprintSize: 64
+genesisContractsBranch: shib-dev
+sprintSize: 16
 sprintSizeBlockNumber: 0
 blockNumber: '0'
 blockTime: '5'
@@ -38,5 +38,5 @@ devnetHeimdallUsers:
 devnetBorFlags:
   - config
   - config
-borDockerBuildContext: https://github.com/shibaone/bor.git#develop
-heimdallDockerBuildContext: https://github.com/shibaone/heimdall.git#develop
+borDockerBuildContext: https://github.com/shibaone/bor.git#v2.0.4-bone-candidate
+heimdallDockerBuildContext: https://github.com/shibaone/heimdall.git#v1.2.3-bone-candidate
