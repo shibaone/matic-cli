@@ -177,12 +177,13 @@ async function installHostSpecificPackages(ip) {
   await runSshCommand(ip, command, maxRetries)
 
   console.log('📍Installing solc-select...')
-  command = 'sudo pipx install solc-select --force && pipx ensurepath && source ~/.bashrc'
+  command=
+    'sudo apt install -y pipx && pipx ensurepath && pipx install solc-select && echo \"export PATH=\$HOME/.local/bin:\$PATH\" >> ~/.bashrc'
   await runSshCommand(ip, command, maxRetries)
 
   console.log('📍Installing solc versions...')
   command =
-    'solc-select install 0.5.17 && solc-select install 0.6.12 && solc-select use 0.5.17'
+    '~/.local/bin/solc-select install 0.5.17 && ~/.local/bin/solc-select install 0.6.12 && ~/.local/bin/solc-select use 0.5.17'
   await runSshCommand(ip, command, maxRetries)
 
   console.log('📍Installing nodejs and npm...')
