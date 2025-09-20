@@ -249,7 +249,7 @@ export class Heimdall {
     return {
       title: 'Build Heimdall',
       task: () =>
-        execa('make', ['install'], {
+        execa('make', ['build', 'network=local'], {
           cwd: this.repositoryDir,
           stdio: getRemoteStdio()
         })
@@ -271,7 +271,7 @@ export class Heimdall {
     return new Listr(
       [
         this.cloneRepositoryTask(),
-        this.initDir(),
+        // this.initDir(),
         this.buildTask(),
         {
           title: 'Init Heimdall',
