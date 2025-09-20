@@ -142,7 +142,7 @@ export async function pullAndRestartHeimdall(doc, ip, i, isPull) {
       await runSshCommand(ip, command, maxRetries)
 
       console.log('📍Installing heimdall...')
-      command = 'cd ~/heimdall && make install'
+      command = 'cd ~/heimdall && go mod tidy && make install'
       await runSshCommand(ip, command, maxRetries)
     }
   }
