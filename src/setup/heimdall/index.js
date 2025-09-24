@@ -256,22 +256,11 @@ export class Heimdall {
     }
   }
 
-  initDir() {
-    return {
-      title: 'Install Dependency',
-      task: () =>
-        execa('go', ['mod', "tidy"], {
-          cwd: this.repositoryDir,
-          stdio: getRemoteStdio()
-        })
-    }
-  }
 
   async getTasks() {
     return new Listr(
       [
         this.cloneRepositoryTask(),
-        // this.initDir(),
         this.buildTask(),
         {
           title: 'Init Heimdall',
