@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 NODE_DIR=$HOME/node
 BOR_HOME=/var/lib/bor
